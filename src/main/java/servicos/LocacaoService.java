@@ -5,6 +5,8 @@ import static utils.DataUtils.adicionarDias;
 import entidades.Filme;
 import entidades.Locacao;
 import entidades.Usuario;
+import exceptions.FilmeSemEstoqueException;
+import exceptions.LocadoraException;
 
 import java.util.Date;
 
@@ -15,7 +17,19 @@ public class LocacaoService {
     private String vPrivate;
     String vDefault;
 
-    public Locacao alugarFilme(Usuario usuario, Filme filme) {
+    public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException{
+
+        if(usuario == null) {
+            throw new LocadoraException("Usuario vazio");
+        }
+
+        if(filme == null) {
+            throw new LocadoraException("Filme vazio");
+        }
+        if(filme.getEstoque() == 0){
+            throw new FilmeSemEstoqueException();
+        }
+
         Locacao locacao = new Locacao();
         locacao.setFilme(filme);
         locacao.setUsuario(usuario);

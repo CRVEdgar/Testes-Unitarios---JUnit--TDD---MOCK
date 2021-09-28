@@ -3,17 +3,17 @@ package servicos;
 import entidades.Filme;
 import entidades.Locacao;
 import entidades.Usuario;
+import exceptions.FilmeSemEstoqueException;
 import org.junit.jupiter.api.Test;
 import utils.DataUtils;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LocacaServicoTeste {
     @Test
-    public void teste() {
+    public void teste() throws Exception {
         //CENÁRIO
         LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuario 1");
@@ -35,4 +35,7 @@ public class LocacaServicoTeste {
         assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
 
     }
+
+
+
 }
